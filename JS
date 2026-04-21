@@ -1,0 +1,176 @@
+//allow toggle of semi-permenant variable canpressspacetocontinue to show text that the user can press space to continue, and hide itself if the user presses space
+
+let canpressspacetocontinue = false;
+
+var wordspressspacetocontinue = document.createElement ("p");
+wordspressspacetocontinue.textContent = "Press space to continue...";
+wordspressspacetocontinue.style.position ="fixed"; 
+wordspressspacetocontinue.style.right = "8px"; 
+wordspressspacetocontinue.style.bottom ="20px"; 
+wordspressspacetocontinue.style.opacity ="0.5"; 
+wordspressspacetocontinue.style.fontStyle= "italic";
+
+document.body.appendChild(wordspressspacetocontinue);
+
+function canpressspaceon() {
+  canpressspacetocontinue = true;
+  wordspressspacetocontinue.style.display = "block"; 
+}
+
+function canpressspaceoff() {
+  canpressspacetocontinue = false;
+  wordspressspacetocontinue.style.display = "none"; 
+}
+
+//registering space bar = print more text
+const textcontainer = document.createElement("div");
+document.body.appendChild(textcontainer);
+
+
+document.addEventListener("keydown", function (event) { 
+if (event.code == "Space" && canpressspacetocontinue) {
+event.preventDefault();
+printtext(toprint());
+const scrollelement = document.documentElement;
+scrollelement.scrollTop = scrollelement.scrollHeight;
+}
+});
+
+//-> with this code in place , later if we want to make it so that you can combine requirements for continuing past a question with canpresspaceon and the element is retrieved from the html form
+//-> next need to figure out how to include printing the next block of text in the event listener event instructions
+
+
+//coding variable storage and event listener for the JS to pull numbers inputted by the HTML form; need to define list/array with user results and then combine get element by id with event listener 
+var userresponsemegalist = []; 
+var curiousdatalist = []; 
+var fixeddatalist = []; 
+var hopefuldatalist = []; 
+var compassionatedatalist = []; 
+var pragmaticdatalist = []; 
+var DAAISdatalist = []; 
+
+function storeresponse6 (num1, num2, num3, num4, num5, num6) {
+curiousdatalist.push(num1);
+fixeddatalist.push(num2);
+hopefuldatalist.push(num3);
+compassionatedatalist.push(num4);
+pragmaticdatalist.push(num5);
+DAAISdatalist.push(num6);
+}
+
+
+let harvestingdata = false
+
+document.addEventListener("DOMContentLoaded", function () {
+var form = document.getElementById("questionanswerboxform")
+var input = document.getElementById("questionanswerboxinput")
+
+form.addEventListener("submit",function (event) {
+event.preventDefault();
+if (!harvestingdata) return;
+if (input.value === "1") {
+userresponsemegalist.push(1);
+harvestingdataoff ();
+} else if (input.value === "2") {
+harvestingdataoff ();
+userresponsemegalist.push(2);
+} else if (input.value === "3") {
+harvestingdataoff ();
+userresponsemegalist.push(3);
+} else if (input.value === "4") {
+harvestingdataoff ();
+userresponsemegalist.push(4);
+}
+//sets form input box back to blank after hitting enter
+input.value = "";
+console.log(userresponsemegalist);
+});
+});
+
+
+  
+function harvestingdataon () {
+harvestingdata = true;
+canpressspaceoff (); 
+}
+if (!harvestingdata) {
+canpressspaceoff ();
+}
+
+function harvestingdataoff (){
+harvestingdata = false;
+canpressspaceon ();
+}
+
+
+
+//print intro + turn space off so they cant accidentally skip it
+harvestingdataoff();
+canpressspaceoff();
+
+//the function to print text to a new line to the container element created earlier; called when spacebar pressed
+function printtext(text) {
+const createline = document.createElement("p");
+createline.innerHTML = text;
+textcontainer.appendChild(createline);
+}
+
+
+//ALL USER-FACING TEXT + unique function storeresponse6 calls for each answer -> ignore settimeout stuff for now will fix later
+printtext("INITIALIZATION… 70%.. 80%.., <br><br> Welcome to Personality Test Reimagined™!"); 
+setTimeout (printtext("<br><br>We hope to serve you as a participant in this program for a long time ☺ <br><br><br>"), 2000);
+setTimeout (printtext("TUTORIAL: Throughout the quiz, DAAIS will prompt you with questions. When you see the question page, it will display a list of answers. Type the number corresponding to the choice you would like to select into the input field and hit enter to interact with DAAIS through your responses. Remember, no choice is truly insignificant. <br> <br> When you see 'Press space to continue...' at the bottom of your screen, click anywhere outside of the input box and press space to proceed. <br><br> <br> NOTE: PTR does not store responses long-term. However, if you want to obscure your final results, you are able to do so by selecting “No” to the last question.  <br><br>Thank you for choosing PTR, and good luck! <br><br>"), 2000);
+setTimeout (canpressspaceon,2000);
+
+//changing what text is printed each time spacebar is pressed // note: return should always be the last thing in each else if statement
+let tracker = "DAAISintro"
+
+var inputtedname = "Stranger";
+
+function toprint() {
+if (tracker === "DAAISintro") {
+tracker = "ask for name"
+canpressspaceon ()
+return "INITIALIZATION… 99%.. 100%.. COMPLETE<br><br>Loading.. <br><br> Hello! I am the Deltamodel Aidance and Inquiry System, or DAAIS, but you can call me DAISY for short.<br> <br> What's your name? <br><br>";;
+}
+else if (tracker === "ask for name"){
+tracker = "friends speech"
+ //ask user for name thru browser prompt, store as var inputted name and repeat back to user (slashes are to prevent autorunning when im coding; del later]
+inputtedname = String(prompt("Please enter your name:"));
+canpressspaceon ()
+return inputtedname + ", " + inputtedname + "... " + "Okay, I'll try to remember that!<br><br>";
+} 
+else if (tracker === "friends speech"){
+tracker = "Q0befriends"
+return "I’m so excited to learn more about you, "+ inputtedname + ". " + "I can’t believe how lucky I am that you’re the first human I’ve interacted with since being reborn in this program. <br><br> I hope we can get along, or even become friends!<br><br> ";
+}
+else if (tracker === "Q0befriends") {
+tracker = "checkQ0response"
+harvestingdataon ()
+canpressspaceoff ()
+return "[Choice: Do you want to be friends with DAISY?] <br> 1. Affirmative <br> 2. Friendly <br> 3. Cynical <br> 4. Aloof <br><br> "
+}
+  //call masterlist function, and use if statements to display response and assign score
+ //eg, if (masterlist [0] === 1) {storeresponse6 (1,1,1,1,2,0); return "your dialogue for choice one <br><br> DAAIS dialogue for choice one"}
+else if (tracker === "checkQ0response") {
+tracker = "memorybriefing"
+harvestingdataoff ()
+canpressspaceon ()
+    if (userresponsemegalist [0] === 1) {
+    storeresponse6 (-1,0,1,-1,3,1)
+    return inputtedname + ": “Sure.” <br> <br> Excellent! I’ll be sure to serve you to the best of my ability!<br> <br>"
+  } else if (userresponsemegalist [0] === 2) {
+    storeresponse6 (0,0,0,4,-2,4)
+    return inputtedname + ": “I’d be glad to!” <br> <br> .. Really!? Thank you so much! That makes me so happy ☺ <br> <br> I’ll do my best on your quiz!<br> <br>"
+  } else if (userresponsemegalist [0] === 3) {
+    storeresponse6 (0,1,0,-5,-3,-5)
+    return inputtedname + ": “Friends? I’d bet you don’t even know what that means.” <br> <br> ... <br> <br> Maybe I don’t. But I would like to. <br> <br> ... <br> <br> <br> I’ll just get the quiz started for you.<br> <br>"
+  } else if (userresponsemegalist [0] === 4) {
+    storeresponse6 (-3,0,0,-1,1,0)
+    return inputtedname + ": “Maybe we could get to know each other a little better first.” <br> <br> Of course. I hope to make a good impression on you ☺ <br> <br>"
+  }
+}
+else {
+return "cont..<br><br>";
+}
+}
