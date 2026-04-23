@@ -1,0 +1,22 @@
+body {
+   font-family: "Inconsolata", monospace;
+   
+   div.questionanswerbox {
+     width: 100%;
+     margin: auto;
+     position: fixed;
+     bottom: 0px;
+     right: -8px;
+   }
+   div.questionanswerbox input {
+     width: 90%;
+   }
+   
+ 
+}
+
+
+
+//font code lines (css) from googlefonts
+
+// I developed all the logic for the program myself, however  during the coding process for the spacepressing and harvesting data functions, i consulted coding libraries like w3schools for formatting and syntax of HTML/JS elements I did not learn during my introductory course
