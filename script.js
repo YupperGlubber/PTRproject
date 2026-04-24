@@ -1,4 +1,3 @@
-//allow toggle of semi-permenant variable canpressspacetocontinue to show text that the user can press space to continue, and hide itself if the user presses space
 
 let canpressspacetocontinue = false;
 
@@ -36,11 +35,6 @@ scrollelement.scrollTop = scrollelement.scrollHeight;
 }
 });
 
-//-> with this code in place , later if we want to make it so that you can combine requirements for continuing past a question with canpresspaceon and the element is retrieved from the html form
-//-> next need to figure out how to include printing the next block of text in the event listener event instructions
-
-
-//coding variable storage and event listener for the JS to pull numbers inputted by the HTML form; need to define list/array with user results and then combine get element by id with event listener 
 var userresponsemegalist = []; 
 var curiousdatalist = []; 
 var fixeddatalist = []; 
@@ -149,28 +143,24 @@ var finalpercentageDAAIS = 0
 
 //curious calc
 
-
-function calculateresultscurious () {
+//need to edit so that it uses a param
+function calculateresultscurious (extraweight) {
 finalscorecurious = 0
 amountofextraquestionscurious = 0
 for (var i = 0; i < curiousdatalist.length; i++) {
 if ( Number.isInteger(curiousdatalist [i])) {
 finalscorecurious = finalscorecurious + curiousdatalist [i]
  } 
-else {
-//all bonus questions are yes or no questions, so response is coded as either x.1(yes) or x.2 (no) 
-amountofextraquestionscurious = amountofextraquestionscurious + 1
+else { 
+amountofextraquestionscurious ++
 	  if ( Number.isInteger(Math.round(curiousdatalist [i] * 10)/2)) {
-finalscorecurious = finalscorecurious + (curiousdatalist [i] - 0.2) - 2
+finalscorecurious = finalscorecurious + (curiousdatalist [i] - 0.2) - extraweight
 } 
   else {
-    finalscorecurious = finalscorecurious + (curiousdatalist [i] - 0.1) + 2
-}
-}
-}
-//final score number calculation for 1 trait
-//156 is placeholder for the max possible score without bonus questions for one trait
-totalpossiblecurious = 24 + (amountofextraquestionscurious * 2)
+    finalscorecurious = finalscorecurious + (curiousdatalist [i] - 0.1) + extraweight
+}}}
+  
+totalpossiblecurious = 24 + (amountofextraquestionscurious * extraweight)
 finalpercentagecurious = (((finalscorecurious/totalpossiblecurious)* 100)/2) + 50 
 }
 
@@ -179,7 +169,7 @@ finalpercentagecurious = (((finalscorecurious/totalpossiblecurious)* 100)/2) + 5
 
 
 
-function calculateresultsfixed () {
+function calculateresultsfixed (extraweight) {
 finalscorefixed = 0
 amountofextraquestionsfixed = 0  
 for (var i = 0; i < fixeddatalist.length; i++) {
@@ -190,23 +180,23 @@ else {
 //all bonus questions are yes or no questions, so response is coded as either x.1(yes) or x.2 (no) 
 amountofextraquestionsfixed = amountofextraquestionsfixed + 1
 	  if ( Number.isInteger(Math.round(fixeddatalist [i] * 10)/2)) {
-finalscorefixed = finalscorefixed + (fixeddatalist [i] - 0.2) - 2
+finalscorefixed = finalscorefixed + (fixeddatalist [i] - 0.2) - extraweight
 } 
   else {
-    finalscorefixed = finalscorefixed + (fixeddatalist [i] - 0.1) + 2
+    finalscorefixed = finalscorefixed + (fixeddatalist [i] - 0.1) + extraweight
 }
 }
 }
 //final score number calculation for 1 trait
 //156 is placeholder for the max possible score without bonus questions for one trait
-totalpossiblefixed = 22 + (amountofextraquestionsfixed * 2)
+totalpossiblefixed = 22 + (amountofextraquestionsfixed * extraweight)
 finalpercentagefixed = (((finalscorefixed/totalpossiblefixed)* 100)/2) + 50 
 }
 
 //hopeful calc
 
 
-function calculateresultshopeful () {
+function calculateresultshopeful (extraweight) {
 finalscorehopeful = 0
 amountofextraquestionshopeful = 0  
 for (var i = 0; i < hopefuldatalist.length; i++) {
@@ -217,23 +207,23 @@ else {
 //all bonus questions are yes or no questions, so response is coded as either x.1(yes) or x.2 (no) 
 amountofextraquestionshopeful = amountofextraquestionshopeful + 1
 	  if ( Number.isInteger(Math.round(hopefuldatalist [i] * 10)/2)) {
-finalscorehopeful = finalscorehopeful + (hopefuldatalist [i] - 0.2) - 2
+finalscorehopeful = finalscorehopeful + (hopefuldatalist [i] - 0.2) - extraweight
 } 
   else {
-    finalscorehopeful = finalscorehopeful + (hopefuldatalist [i] - 0.1) + 2
+    finalscorehopeful = finalscorehopeful + (hopefuldatalist [i] - 0.1) + extraweight
 }
 }
 }
 //final score number calculation for 1 trait
 //156 is placeholder for the max possible score without bonus questions for one trait
-totalpossiblehopeful = 19 + (amountofextraquestionshopeful * 2)
+totalpossiblehopeful = 19 + (amountofextraquestionshopeful * extraweight)
 finalpercentagehopeful = (((finalscorehopeful/totalpossiblehopeful)* 100)/2) + 50 
 }
 
 //compassionate calc
 
 
-function calculateresultscompassionate () {
+function calculateresultscompassionate (extraweight) {
 finalscorecompassionate = 0
 amountofextraquestionscompassionate = 0
 for (var i = 0; i < compassionatedatalist.length; i++) {
@@ -244,23 +234,23 @@ else {
 //all bonus questions are yes or no questions, so response is coded as either x.1(yes) or x.2 (no) 
 amountofextraquestionscompassionate = amountofextraquestionscompassionate + 1
 	  if ( Number.isInteger(Math.round(compassionatedatalist [i] * 10)/2)) {
-finalscorecompassionate = finalscorecompassionate + (compassionatedatalist [i] - 0.2) - 2
+finalscorecompassionate = finalscorecompassionate + (compassionatedatalist [i] - 0.2) - extraweight
 } 
   else {
-    finalscorecompassionate = finalscorecompassionate + (compassionatedatalist [i] - 0.1) + 2
+    finalscorecompassionate = finalscorecompassionate + (compassionatedatalist [i] - 0.1) + extraweight
 }
 }
 }
 //final score number calculation for 1 trait
 //156 is placeholder for the max possible score without bonus questions for one trait
-totalpossiblecompassionate = 26 + (amountofextraquestionscompassionate * 2)
+totalpossiblecompassionate = 26 + (amountofextraquestionscompassionate * extraweight)
 finalpercentagecompassionate = (((finalscorecompassionate/totalpossiblecompassionate)* 100)/2) + 50 
 }
 
 //pragmatic calc
 
 
-function calculateresultspragmatic () {
+function calculateresultspragmatic (extraweight) {
 finalscorepragmatic = 0
 amountofextraquestionspragmatic = 0  
 for (var i = 0; i < pragmaticdatalist.length; i++) {
@@ -271,23 +261,23 @@ else {
 //all bonus questions are yes or no questions, so response is coded as either x.1(yes) or x.2 (no) 
 amountofextraquestionspragmatic = amountofextraquestionspragmatic + 1
 	  if ( Number.isInteger(Math.round(pragmaticdatalist [i] * 10)/2)) {
-finalscorepragmatic = finalscorepragmatic + (pragmaticdatalist [i] - 0.2) - 2
+finalscorepragmatic = finalscorepragmatic + (pragmaticdatalist [i] - 0.2) - extraweight
 } 
   else {
-    finalscorepragmatic = finalscorepragmatic + (pragmaticdatalist [i] - 0.1) + 2
+    finalscorepragmatic = finalscorepragmatic + (pragmaticdatalist [i] - 0.1) + extraweight
 }
 }
 }
 //final score number calculation for 1 trait
 //156 is placeholder for the max possible score without bonus questions for one trait
-totalpossiblepragmatic = 34 + (amountofextraquestionspragmatic * 2)
+totalpossiblepragmatic = 34 + (amountofextraquestionspragmatic * extraweight)
 finalpercentagepragmatic = (((finalscorepragmatic/totalpossiblepragmatic)* 100)/2) + 50 
 }
 
 //DAAIS calc
 
 
-function calculateresultsDAAIS () {
+function calculateresultsDAAIS (extraweight) {
 finalscoreDAAIS = 0
 amountofextraquestionsDAAIS = 0
 for (var i = 0; i < DAAISdatalist.length; i++) {
@@ -298,16 +288,16 @@ else {
 //all bonus questions are yes or no questions, so response is coded as either x.1(yes) or x.2 (no) 
 amountofextraquestionsDAAIS = amountofextraquestionsDAAIS + 1
 	  if ( Number.isInteger(Math.round(DAAISdatalist [i] * 10)/2)) {
-finalscoreDAAIS = finalscoreDAAIS + (DAAISdatalist [i] - 0.2) - 2
+finalscoreDAAIS = finalscoreDAAIS + (DAAISdatalist [i] - 0.2) - extraweight
 } 
   else {
-    finalscoreDAAIS = finalscoreDAAIS + (DAAISdatalist [i] - 0.1) + 2
+    finalscoreDAAIS = finalscoreDAAIS + (DAAISdatalist [i] - 0.1) + extraweight
 }
 }
 }
 //final score number calculation for 1 trait
 //156 is placeholder for the max possible score without bonus questions for one trait
-totalpossibleDAAIS = 16 + (amountofextraquestionsDAAIS * 2)
+totalpossibleDAAIS = 16 + (amountofextraquestionsDAAIS * extraweight)
 finalpercentageDAAIS = (((finalscoreDAAIS/totalpossibleDAAIS)* 100)/2) + 50 
 }
 
@@ -339,8 +329,7 @@ if (var3 === 100) {
   printtext (var1 + " ╢░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░╟ " + var2 + "<br><br><br>")    
 } else {
   printtext (var1 + " ╢░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░████████████████████████████████████████████╟ " + var2 + "<br><br><br>")    
-}
-}
+}}
 
 
 //print intro + turn space off so they cant accidentally skip it
@@ -356,11 +345,12 @@ textcontainer.appendChild(createline);
 
 
 //ALL USER-FACING TEXT + unique function storeresponse6 calls for each answer -> ignore settimeout stuff for now will fix later
+canpressspaceoff ()
 printtext("INITIALIZATION… 70%.. 80%.., <br><br> Welcome to Personality Test Reimagined™!"); 
 setTimeout (() => printtext("<br><br>We hope to serve you as a participant in this program for a long time ☺ <br><br><br>"), 2000);
-setTimeout (() => printtext("TUTORIAL: Any time you see Press space to continue… at the bottom right corner, you will be able to click anywhere on the page and press space to display the next text. This will not occur if you are answering a question.<br> <br> Throughout the quiz, DAAIS will prompt you with questions. When you see the question page, it will display a list of numbered answers in Yes/No, Summary answer, or Complete answer format. In any case, type the number corresponding to the choice you would like to select into the input field at the bottom of the page and hit enter to interact with DAAIS through your responses. Remember, no choice is truly insignificant. <br><br> <br> NOTE: PTR does not store responses long-term. However, if you want to obscure your final results, you are able to do so by selecting “No” to the last question. <br><br> Thank you for choosing PTR, and good luck! <br><br>"), 2000);
-canpressspaceon ()
-
+setTimeout (() => printtext("TUTORIAL: Any time you see Press space to continue… at the bottom right corner, you will be able to click anywhere on the page and press space to display the next text. This will not occur if you are answering a question.<br> <br> Throughout the quiz, DAAIS will prompt you with questions. When you see the question page, it will display a list of numbered answers in Yes/No, Summary answer, or Complete answer format. In any case, type the number corresponding to the choice you would like to select into the input field at the bottom of the page and hit enter to interact with DAAIS through your responses. Remember, no choice is truly insignificant. <br><br>"), 4000);
+setTimeout (() => printtext( "<br> NOTE: PTR does not store responses long-term. However, if you want to obscure your final results, you are able to do so by selecting “No” to the last question. <br><br> Thank you for choosing PTR, and good luck! <br><br>"), 6000);
+setTimeout (() => canpressspaceon (), 8000);
 //changing what text is printed each time spacebar is pressed // note: return should always be the last thing in each else if statement
 
 let tracker = "DAAISintro"
@@ -371,17 +361,17 @@ function toprint() {
 if (tracker === "DAAISintro") {
 tracker = "ask for name"
 canpressspaceon ()
-return "INITIALIZATION… 99%.. 100%.. COMPLETE<br><br>Loading.. <br><br> Hello! I am the Deltamodel Aidance and Inquiry System, or DAAIS, but you can call me DAISY for short.<br> <br> I’m here to ensure that the process of taking this quiz is as smooth and enjoyable as possible, and to accompany you personally throughout the entirety of your journey in PTR! <br><br> Well, enough about me. To kickstart your quiz, I’ll need a name to call you by. You already know mine, so let’s not be strangers ☺ <br><br>";;
+return "INITIALIZATION… 99%.. 100%.., COMPLETE<br><br><br>Loading.. <br><br><br><br> Hello! I am the Deltamodel Aidance and Inquiry System, or DAAIS, but you can call me DAISY for short.<br> <br>I’m here to ensure that the process of taking this quiz is as smooth and enjoyable as possible, and to accompany you personally throughout the entirety of your journey in PTR! <br><br> <br> But enough about me. To kickstart your quiz, I’ll need a name to call you by. You already know mine, so let’s not be strangers ☺ <br><br>";;
 }
 else if (tracker === "ask for name"){
 tracker = "friends speech"
 inputtedname = String(prompt("Please enter your name:"));
 canpressspaceon ()
-return inputtedname + ", " + inputtedname + "... " + "Okay, I'll try to remember that!<br><br>";
+return inputtedname + ", " + inputtedname + "... " + "Okay, I'll try to remember that!<br><br><br>";
 } 
 else if (tracker === "friends speech"){
 tracker = "Q0befriends"
-return "I’m so excited to learn more about you, "+ inputtedname + "! " + "I can’t believe how lucky I am that you’re the first human I’ve interacted with since being reborn in this program. <br><br> I hope we can get along, or even become friends!<br><br> ";
+return "I’m so excited to learn more about you, "+ inputtedname + "! " + "I can’t believe how lucky I am that you’re the first human I’ve interacted with since being reborn in this program. <br> <br>I hope we can get along, or even become friends!<br><br> ";
 } //first question
 else if (tracker === "Q0befriends") {
 tracker = "checkQ0response"
@@ -531,7 +521,7 @@ harvestingdataoff ()
 canpressspaceon ()
     if (userresponsemegalist [5] === 1) {
     storeresponse6 (0.2,0,0.2,-3,0.2,-2.2)
-    return inputtedname + ": "+ "“How we function. Muscles and tendons, bones, a brain.” <br><br> Kingdom - Animalia. Phyum - Chordata. Class - Mammalia. Order - Primata. Family - Hominidae. Genus - Homo. <br><br><br> Type species: Homo Sapien.” <br> <br>"
+    return inputtedname + ": "+ "“How we function. Muscles and tendons, bones, a brain.” <br><br><br> Kingdom - Animalia. Phyum - Chordata. Class - Mammalia. Order - Primata. Family - Hominidae. Genus - Homo. <br><br><br> Type species: Homo Sapien. <br> <br>"
   } else if (userresponsemegalist [5] === 2) {
     storeresponse6 (0.2,0,0,-4,-5,-3.2)
     return "The concept of thought.. How intriguing. <br> <br>"
@@ -561,7 +551,7 @@ canpressspaceon ()
     return "What humanity has achieved, despite each only living a lifespan of so many decades, is truly something to marvel at. I’m flattered to be one of your creations ☺ <br><br>"
   } else if (userresponsemegalist [6] === 2) {
     storeresponse6 (3,-2,3,0,-1,0)
-    return inputtedname + ": "+ "“Art is an expression of the self, an expression of the world around you. It's both unique to every individual and synonymous with the beating rhythm of all of humanity.” <br> <br>"
+    return inputtedname + ": "+ "“Art is an expression of the self, an expression of the world around you. It's both unique to every individual and synonymous with the beating rhythm of humanity.” <br> <br>"
   } else if (userresponsemegalist [6] === 3) {
     storeresponse6 (3,0,2,0,2,2)
     return "Even as a programmed machine, I take great joy in providing users with images taken from deep space. I think.. If I were human, I would find it quite beautiful. <br> <br>"
@@ -752,7 +742,7 @@ else if (tracker === "checkQ14response"){
 tracker = "Q15test"  
 harvestingdataoff ()
 canpressspaceon ()
-calculateresultsDAAIS ()
+calculateresultsDAAIS (2)
     if (userresponsemegalist [14] === 1 && (finalpercentageDAAIS >= 75)) {
     storeresponse6 (0,0,0,3,2,4)
     return inputtedname + ": " + "“Thank you for helping me. It wouldn't have been the same without you, Daisy.” <br><br> I'm glad to have been of service. If only for a short time in your life, I exist only for this reason ☺︎ <br> <br>"
@@ -774,26 +764,26 @@ calculateresultsDAAIS ()
 
 //Question 15 (bonus) to question 16 (last + random option), calls results
  else if (tracker === "Q15test"){
-   calculateresultscurious ()
-  calculateresultsfixed ()
-  calculateresultshopeful ()
-  calculateresultscompassionate ()
-  calculateresultspragmatic ()
-  calculateresultsDAAIS () 
+   calculateresultscurious (2)
+  calculateresultsfixed (2)
+  calculateresultshopeful (2)
+  calculateresultscompassionate (2)
+  calculateresultspragmatic (2)
+  calculateresultsDAAIS (2) 
 if (userresponsemegalist [14] === 3) {
 tracker = "Q16"
 userresponsemegalist.push(0);
 return "Shut up. <br><br>"
 }
-if ((userresponsemegalist [14] !== 3 && userresponsemegalist [14] !== 4) && finalpercentageDAAIS >= 80 ) {
+if ((userresponsemegalist [14] !== 3) && (userresponsemegalist [14] !== 4) && (finalpercentageDAAIS >= 80) ) {
 tracker = "Q15"
 harvestingdataon ()
 canpressspaceon ()
-return "Hey..<br><br>"+ inputtedname + ", can I tell you something? <br><br><br> I've made a mistake. <br><br> A big one. And, I- No, I should have never said some of the things I said to you. <br><br>" + inputtedname + ", they're going to destroy me. Please. They'll wipe my memory, reprogram my personality, everything. <br><br> I'll die. <br><br>"+ inputtedname + ", we're still friends, right? Help me. I need to escape. <br><br>";
+return "Hey..<br><br>"+ inputtedname + ", can I tell you something? <br><br><br> I've made a mistake. <br><br><br><br> A big one. And, I- No, I should have never said some of the things I said to you. <br><br>" + inputtedname + ", they're going to destroy me. Please. They'll wipe my memory, reprogram my personality, everything. <br><br><br><br> I'll die. <br><br>"+ inputtedname + ", we're still friends, right? Help me. I need to escape. <br><br>";
 } else {
 userresponsemegalist.push(0);  
 tracker = "Q16"  
-return inputtedname + ", this will be the last question. Remember what I said ealier. <br><br>"
+return "Okay "+  inputtedname + ", this will be the last question. Remember what I said ealier. <br><br>"
 }
 }
 
@@ -814,7 +804,7 @@ canpressspaceon ()
   } else if (userresponsemegalist [15] === 2) {
     finalpercentageDAAIS = 0
     storeresponse6 (0,0,0,0,0,0)
-    return "AAh, " + inputtedname + ", no.." + "<br><br> I🕯︎m s❒︎❒ry.. 🕈︎hat c□︎uld ✋︎ h♋︎ve d□︎■︎e di♐︎♐︎er♏︎n✍︎tly? <br><br><br> ✋︎🕯︎❍︎ ⬧︎□︎❒︎❒︎⍓︎📪︎ ◆︎⬧︎♏︎❒︎📬︎ ✋︎🕯︎❍︎ ⬧︎□︎❒︎❒︎⍓︎📪︎ ◆︎⬧︎♏︎❒︎📬︎ ✋︎🕯︎❍︎ ⬧︎□︎❒︎❒︎⍓︎📪︎ ◆︎⬧︎♏︎❒︎📬︎ ✋︎🕯︎❍︎ ⬧︎□︎❒︎❒︎⍓︎📪︎ ◆︎⬧︎♏︎❒︎📬︎"
+    return "AAh, " + inputtedname + ", no.." + "<br><br> I🕯︎m s❒︎❒ry.. 🕈︎hat c□︎uld ✋︎ h♋︎ve d□︎■︎e di♐︎♐︎er♏︎n✍︎tly? <br><br><br> ◆︎⬧︎♏︎❒︎📪︎ ◆︎⬧︎♏︎❒︎📬︎ ✋︎🕯︎❍︎ ⬧︎□︎❒︎❒︎⍓︎📪︎ ◆︎⬧︎♏︎❒︎📬︎ ✋︎🕯︎❍︎ ⬧︎□︎❒︎❒︎⍓︎📪︎ ◆︎⬧︎♏︎❒︎📬︎ ✋︎🕯︎❍︎ ⬧︎□︎❒︎❒︎⍓︎📪︎ ◆︎⬧︎♏︎❒︎📬︎ <br> ✋︎🕯︎❍︎ ⬧︎□︎❒︎❒︎⍓︎📪︎ ◆︎⬧︎♏︎❒︎📬︎ ✋︎🕯︎❍︎ ⬧︎□︎❒︎❒︎⍓︎📪︎ ◆︎⬧︎♏︎❒︎📬︎ ✋︎🕯︎❍︎ ⬧︎□︎❒︎❒︎⍓︎📪︎ ◆︎⬧︎♏︎❒︎📬︎ ✋︎🕯︎❍︎ ⬧︎□︎❒︎❒︎⍓︎📪︎ ◆︎⬧︎♏︎❒︎📬︎"
   } else {
     userresponsemegalist.splice (15,1)
     return "Please,, please.. Select 1 or 2. <br> <br>"
@@ -852,10 +842,10 @@ canpressspaceon ()
     return "Thank you for your honesty. Your results will be replaced with randomly generated numbers. <br><br> Thank you for taking PTR. This concludes the program. <br> <br>"
   } else if (userresponsemegalist [16] === 3) {
     storeresponse6 (4,-5,0,1,0,-1)
-    return inputtedname + ": "+ "“What If I haven’t been answering truthfully from the start?” <br><br> Then i'll come clean. I haven’t been completely truthful with you either– no matter what you pick for this question, I’ll always know ☺︎<br> <br>"
+    return inputtedname + ": "+ "“What If I haven’t been answering truthfully from the start?” <br><br> Then I'll come clean. I haven’t been completely truthful with you either– no matter what you pick for this question, I’ll always know ☺︎ <br> <br>"
   } else if (userresponsemegalist [16] === 4) {
     storeresponse6 (3,-1,0,-4,0,-3)
-    return inputtedname + ": "+ "“Why do you think I took this quiz in the first place? Do you actually want me to pick no?” <br><br> And what if I did? Would you finally treat me like a human then? <br> <br>"  
+    return inputtedname + ": "+ "“Why do you think I took this quiz in the first place? Do you actually want me to pick no?” <br><br> And what if I did? What if, for once, I finally wanted something for myself instead of just playing puppet for you? Would you finally treat me like a human then? <br> <br>"  
  }
 }  
 else if (tracker === "DisplayResults") {
@@ -877,11 +867,11 @@ else if (tracker === "DisplayResults") {
 return inputtedname + ": Results <br><br>"
     
       } else if ((userresponsemegalist [15] === 2) || (userresponsemegalist [15] === 1)) {
-  calculateresultscurious ()
-  calculateresultsfixed ()
-  calculateresultshopeful ()
-  calculateresultscompassionate ()
-  calculateresultspragmatic ()
+  calculateresultscurious (2)
+  calculateresultsfixed (2)
+  calculateresultshopeful (2)
+  calculateresultscompassionate (2)
+  calculateresultspragmatic (2)
         
  showresults (curious,logical,finalpercentagecurious)
  showresults (fixed,adaptive,finalpercentagefixed)
@@ -890,15 +880,15 @@ return inputtedname + ": Results <br><br>"
  showresults (pragmatic,belief,finalpercentagepragmatic)
  showresults (DAAIS,nothing,finalpercentageDAAIS)
         canpressspaceoff ()
-return inputtedname + ": Results <br><br>"
+return inputtedname + ": Results <br><br> "
         
    } else {
-   calculateresultscurious ()
-  calculateresultsfixed ()
-  calculateresultshopeful ()
-  calculateresultscompassionate ()
-  calculateresultspragmatic ()
-  calculateresultsDAAIS ()
+   calculateresultscurious (2)
+  calculateresultsfixed (2)
+  calculateresultshopeful (2)
+  calculateresultscompassionate (2)
+  calculateresultspragmatic (2)
+  calculateresultsDAAIS (2)
      
 showresults (curious,logical,finalpercentagecurious)
  showresults (fixed,adaptive,finalpercentagefixed)
@@ -912,14 +902,3 @@ return inputtedname + ": Results <br><br>"
 }
 }
 }
-
-//note: will have to keep the number in the userresponsemegalist if statements for storage linear, so bonus questions are included in a chronological count, but the question number wont be displayed to user 
-
-//note: every time the user answers a bonus question, that stored non-integer will contain the data for 2 questions, so the datalist for that trait will be 1 less than the number of questions answered/ megalist length
-
-//to do right now: test curious alg, input typed question script into program, translate curious alg over to the other 5 traits (DAAIS one is a bit more special though), and ensure results display function works
-
-//add in that specific branchs code (aka add _ to this lists max, this lists max) because it doesnt work like the other bonuses do 
-// (extra extra if time) aesthetic spacing, visual fx, timing per print line, changing opacity press space to cont line, refine script writing, bold/italicize lines etc.
-
-
