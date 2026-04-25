@@ -30,7 +30,7 @@ document.addEventListener("keydown", function (event) {
 if (event.code == "Space" && canpressspacetocontinue) {
 event.preventDefault();
 printtext(toprint());
-const scrollelement = document.documentElement;
+const scrollelement = document.documentElement || document.scrollingElement;
 scrollelement.scrollTop = scrollelement.scrollHeight;
 }
 });
